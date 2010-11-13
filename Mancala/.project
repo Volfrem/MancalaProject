@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Mancala</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.powerflasher.fdt.core.FlashBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.powerflasher.fdt.core.FlashNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>controls</name>
+			<type>2</type>
+			<locationURI>controls</locationURI>
+		</link>
+		<link>
+			<name>playerglobal.swc</name>
+			<type>1</type>
+			<locationURI>FlashCS5/playerglobal.swc</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>
