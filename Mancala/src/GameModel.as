@@ -13,7 +13,7 @@ package {
 		private var mPlayerOne : Player;
 		//player two		private var mPlayerTwo : Player;
 		//pits list		private var mPits : Dictionary;
-		//active player		private var mActivePlayer : Player;
+		//active player		private var mActivePlayer : Player;		private var mScore : Score;
 
 		/**
 		 * Initialize game model instance
@@ -39,6 +39,7 @@ package {
 			var gemColors : Vector.<String> = new Vector.<String>();
 			gemColors.push("Blue", "Green", "Red", "Blue");//list of initial gem colors
 			mPlayerOne = new Player("Player 1", 4, gemColors);			mPlayerTwo = new Player("Player 2", 4, gemColors);
+			mScore = new Score();
 			createPits();
 		}
 
@@ -320,10 +321,21 @@ package {
 			var controller : GameController = GameController.getInstance();
 			var winner : String;
 			var p1Points : int = mPlayerOne.gemsCaptured + mPlayerOne.gemsInPits;			var p2Points : int = mPlayerTwo.gemsCaptured + mPlayerTwo.gemsInPits;
-			if(p1Points > p2Points) winner = mPlayerOne.name;
-			else if(p1Points < p2Points) winner = mPlayerTwo.name;//decide the winner
+			if(p1Points > p2Points) {
+				winner = mPlayerOne.name;
+				mScore.setScore(0);
+			}
+			else if(p1Points < p2Points) {
+				winner = mPlayerTwo.name;//decide the winner
+				mScore.setScore(1);
+			}
 			else winner = null;
+			controller.updateScore(mScore.rounds, mScore.playerOneWon, mScore.playerTwoWon, mPlayerOne.name, mPlayerTwo.name);
 			controller.showWinTable(mPlayerOne.name, mPlayerTwo.name, mPlayerOne.gemsCaptured, mPlayerTwo.gemsCaptured, mPlayerOne.gemsInPits, mPlayerTwo.gemsInPits, winner);
+		}
+
+		public function clearScore() : void {
+			mScore.playersChanged();
 		}
 	}
 }
