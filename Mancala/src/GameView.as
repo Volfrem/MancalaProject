@@ -1,16 +1,17 @@
 package {
-	import Events.ShowWinTable;
-	import Events.DisablePlayerTwoPits;
-	import Events.DisablePlayerOnePits;
-	import Events.CollectGemsInPit;
-	import Events.SameTurn;
-	import Events.NextTurn;
-	import Events.RemoveAllGemsFromPit;
 	import Events.AddGemToPit;
 	import Events.AnimationInProgress;
+	import Events.CollectGemsInPit;
+	import Events.DisablePlayerOnePits;
+	import Events.DisablePlayerTwoPits;
 	import Events.EventHandler;
 	import Events.ExitGame;
+	import Events.NextTurn;
+	import Events.RemoveAllGemsFromPit;
+	import Events.SameTurn;
+	import Events.ShowWinTable;
 	import Events.StartNewGame;
+	import Events.UpdateScore;
 
 	import Graphics.GameScreen;
 	import Graphics.StartupScreen;
@@ -51,7 +52,7 @@ package {
 		 * Add global listeners to get events from controller
 		 */
 		private function addEventSubscription() : void {
-			EventHandler.addEventSubscription(StartNewGame.EVENT_NAME, startNewGame);			EventHandler.addEventSubscription(ExitGame.EVENT_NAME, exitGame);			EventHandler.addEventSubscription(AnimationInProgress.EVENT_NAME, animationInProgress);			EventHandler.addEventSubscription(AddGemToPit.EVENT_NAME, addGemToPit);			EventHandler.addEventSubscription(RemoveAllGemsFromPit.EVENT_NAME, removeAllGems);			EventHandler.addEventSubscription(NextTurn.EVENT_NAME, nextTurn);			EventHandler.addEventSubscription(SameTurn.EVENT_NAME, sameTurn);			EventHandler.addEventSubscription(CollectGemsInPit.EVENT_NAME, collectGems);			EventHandler.addEventSubscription(DisablePlayerOnePits.EVENT_NAME, disablePlayerOnePits);			EventHandler.addEventSubscription(DisablePlayerTwoPits.EVENT_NAME, disablePlayerTwoPits);			EventHandler.addEventSubscription(ShowWinTable.EVENT_NAME, showWinTable);
+			EventHandler.addEventSubscription(StartNewGame.EVENT_NAME, startNewGame);			EventHandler.addEventSubscription(ExitGame.EVENT_NAME, exitGame);			EventHandler.addEventSubscription(AnimationInProgress.EVENT_NAME, animationInProgress);			EventHandler.addEventSubscription(AddGemToPit.EVENT_NAME, addGemToPit);			EventHandler.addEventSubscription(RemoveAllGemsFromPit.EVENT_NAME, removeAllGems);			EventHandler.addEventSubscription(NextTurn.EVENT_NAME, nextTurn);			EventHandler.addEventSubscription(SameTurn.EVENT_NAME, sameTurn);			EventHandler.addEventSubscription(CollectGemsInPit.EVENT_NAME, collectGems);			EventHandler.addEventSubscription(DisablePlayerOnePits.EVENT_NAME, disablePlayerOnePits);			EventHandler.addEventSubscription(DisablePlayerTwoPits.EVENT_NAME, disablePlayerTwoPits);			EventHandler.addEventSubscription(ShowWinTable.EVENT_NAME, showWinTable);			EventHandler.addEventSubscription(UpdateScore.EVENT_NAME, updateScore);
 		}
 
 		/**
@@ -90,6 +91,10 @@ package {
 		private function hideWinTable() : void {
 			if(!mStage.getChildByName(mWinTable.name)) return;
 			mStage.removeChild(mWinTable);
+		}
+
+		private function updateScore(event : UpdateScore) : void {
+			mStartupScreen.score.setScore(event.playerOneName, event.playerTwoName, event.rounds, event.playerOneWon, event.playerTwoWon);
 		}
 
 		/**
@@ -132,6 +137,7 @@ package {
 		 */
 		private function showStartupScreen() : void {
 			mStartupScreen.clearFields();
+			mStartupScreen.showScore();
 			mStage.addChild(mStartupScreen);
 		}
 

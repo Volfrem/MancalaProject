@@ -1,5 +1,4 @@
 package {
-	import Events.ShowWinTable;
 	import Events.AddGemToPit;
 	import Events.AnimationInProgress;
 	import Events.CollectGemsInPit;
@@ -10,7 +9,9 @@ package {
 	import Events.NextTurn;
 	import Events.RemoveAllGemsFromPit;
 	import Events.SameTurn;
+	import Events.ShowWinTable;
 	import Events.StartNewGame;
+	import Events.UpdateScore;
 
 	import flash.events.MouseEvent;
 
@@ -72,6 +73,7 @@ package {
 		 */
 		public function playerOneNameChanged(_name : String) : void {
 			GameModel.getInstance().playerOne.name = _name;
+			GameModel.getInstance().clearScore();
 		}
 
 		/**
@@ -79,6 +81,7 @@ package {
 		 */
 		public function playerTwoNameChanged(_name : String) : void {
 			GameModel.getInstance().playerTwo.name = _name;
+			GameModel.getInstance().clearScore();
 		}
 
 		/**
@@ -170,6 +173,10 @@ package {
 		 */
 		public function showWinTable(p1 : String,p2 : String,p1cap : int,p2cap : int,p1pit : int,p2pit : int,winner : String) : void {
 			EventHandler.dispatchGlobalEvent(new ShowWinTable(p1, p2, p1cap, p2cap, p1pit, p2pit, winner));
+		}
+
+		public function updateScore(_rounds : int,_p1score : int,_p2score : int,_p1name : String,_p2name : String) : void {
+			EventHandler.dispatchGlobalEvent(new UpdateScore(_rounds, _p1score, _p2score, _p1name, _p2name));
 		}
 	}
 }
